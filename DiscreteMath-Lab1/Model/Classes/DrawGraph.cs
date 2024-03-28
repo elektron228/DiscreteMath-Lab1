@@ -101,7 +101,7 @@ namespace DiscreteMath_Lab1
         }
 
         /// <summary>
-        /// Генерирует граф.
+        /// Отрисовывает граф.
         /// </summary>
         /// <param name="V"></param>
         /// <param name="E"></param>
@@ -148,8 +148,15 @@ namespace DiscreteMath_Lab1
                 //Если кратные ребра.
                 if (matrix[E[i].Vertex1, E[i].Vertex2] >= 1)
                 {
-                    matrix[E[i].Vertex1, E[i].Vertex2]++;
-                    matrix[E[i].Vertex2, E[i].Vertex1]++;
+                    if (E[i].Vertex1 == E[i].Vertex2)
+                    {
+                        matrix[E[i].Vertex1, E[i].Vertex2]++;
+                    }
+                    else
+                    {
+                        matrix[E[i].Vertex1, E[i].Vertex2]++;
+                        matrix[E[i].Vertex2, E[i].Vertex1]++;
+                    }
                 }
                 else
                 {
