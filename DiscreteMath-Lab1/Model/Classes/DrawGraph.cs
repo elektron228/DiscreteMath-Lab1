@@ -50,7 +50,7 @@ namespace DiscreteMath_Lab1
         }
 
         /// <summary>
-        /// Рисует вершину.
+        /// Отрисовывает вершину.
         /// </summary>
         /// <param name="x"></param>
         /// <param name="y"></param>

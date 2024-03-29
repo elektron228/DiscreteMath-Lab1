@@ -37,18 +37,6 @@ namespace DiscreteMath_Lab1
         int selected1; 
         int selected2;
 
-
-        private void SelectButton_Click(object sender, EventArgs e)
-        {
-            DrawVertexButton.Enabled = true;
-            DrawEdgeButton.Enabled = true;
-            DeleteElementButton.Enabled = true;
-            G.ClearDrawinArea();
-            G.drawALLGraph(V, E);
-            DrawingAreaPictureBox.Image = G.GetBitmap();
-            selected1 = -1;
-        }
-
         private void DrawVertexButton_Click(object sender, EventArgs e)
         {
             DrawVertexButton.Enabled = false;
