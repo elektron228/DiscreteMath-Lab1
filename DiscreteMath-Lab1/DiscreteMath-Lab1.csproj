@@ -48,6 +48,7 @@
   <ItemGroup>
     <Compile Include="Model\Classes\DrawGraph.cs" />
     <Compile Include="Model\Classes\Edge.cs" />
+    <Compile Include="Model\Classes\GraphMetrics.cs" />
     <Compile Include="Model\Classes\Vertex.cs" />
     <Compile Include="View\MainForm.cs">
       <SubType>Form</SubType>

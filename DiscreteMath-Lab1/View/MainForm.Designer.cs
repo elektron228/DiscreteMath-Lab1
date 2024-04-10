@@ -44,6 +44,7 @@
             this.SimpleGraphCheckBox = new System.Windows.Forms.CheckBox();
             this.FullGraphCheckBox = new System.Windows.Forms.CheckBox();
             this.GenerateRandomGraphButton = new System.Windows.Forms.Button();
+            this.MetrixMatrButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingAreaPictureBox)).BeginInit();
             this.GenerateGraphGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -90,9 +91,9 @@
             // 
             // CreateIncMatrButton
             // 
-            this.CreateIncMatrButton.Location = new System.Drawing.Point(634, 12);
+            this.CreateIncMatrButton.Location = new System.Drawing.Point(613, 12);
             this.CreateIncMatrButton.Name = "CreateIncMatrButton";
-            this.CreateIncMatrButton.Size = new System.Drawing.Size(86, 23);
+            this.CreateIncMatrButton.Size = new System.Drawing.Size(64, 23);
             this.CreateIncMatrButton.TabIndex = 5;
             this.CreateIncMatrButton.Text = "Inc Matrix";
             this.CreateIncMatrButton.UseVisualStyleBackColor = true;
@@ -102,7 +103,7 @@
             // 
             this.CreateAdjMatrButton.Location = new System.Drawing.Point(542, 12);
             this.CreateAdjMatrButton.Name = "CreateAdjMatrButton";
-            this.CreateAdjMatrButton.Size = new System.Drawing.Size(86, 23);
+            this.CreateAdjMatrButton.Size = new System.Drawing.Size(65, 23);
             this.CreateAdjMatrButton.TabIndex = 6;
             this.CreateAdjMatrButton.Text = "Adj Matrix";
             this.CreateAdjMatrButton.UseVisualStyleBackColor = true;
@@ -214,11 +215,22 @@
             this.GenerateRandomGraphButton.UseVisualStyleBackColor = true;
             this.GenerateRandomGraphButton.Click += new System.EventHandler(this.GenerateRandomGraphButton_Click);
             // 
+            // MetrixMatrButton
+            // 
+            this.MetrixMatrButton.Location = new System.Drawing.Point(683, 12);
+            this.MetrixMatrButton.Name = "MetrixMatrButton";
+            this.MetrixMatrButton.Size = new System.Drawing.Size(76, 23);
+            this.MetrixMatrButton.TabIndex = 11;
+            this.MetrixMatrButton.Text = "Metrix Matrix";
+            this.MetrixMatrButton.UseVisualStyleBackColor = true;
+            this.MetrixMatrButton.Click += new System.EventHandler(this.MetrixMatrButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 423);
+            this.Controls.Add(this.MetrixMatrButton);
             this.Controls.Add(this.GenerateGraphGroupBox);
             this.Controls.Add(this.MatrixListBox);
             this.Controls.Add(this.DrawingAreaPictureBox);
@@ -255,6 +267,7 @@
         private System.Windows.Forms.CheckBox FullGraphCheckBox;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GraphSizeComboBox;
+        private System.Windows.Forms.Button MetrixMatrButton;
     }
 }
 

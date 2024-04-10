@@ -7,6 +7,9 @@ using System.Threading.Tasks;
 
 namespace DiscreteMath_Lab1
 {
+    /// <summary>
+    /// Создан для работы с отрисовкой графа и его элементов.
+    /// </summary>
     class DrawGraph
     {
         Bitmap bitmap;
@@ -148,6 +151,7 @@ namespace DiscreteMath_Lab1
                 //Если кратные ребра.
                 if (matrix[E[i].Vertex1, E[i].Vertex2] >= 1)
                 {
+                    //Если это петля.
                     if (E[i].Vertex1 == E[i].Vertex2)
                     {
                         matrix[E[i].Vertex1, E[i].Vertex2]++;
@@ -164,6 +168,69 @@ namespace DiscreteMath_Lab1
                     matrix[E[i].Vertex2, E[i].Vertex1] = 1;
                 }
             }
+        }
+
+        public int[,] CreateMetricsMatrix(int[,] adjacencyMatrix)
+        {
+            int n = adjacencyMatrix.GetLength(0);
+            int[,] distanceMatrix = new int[n, n];
+
+            // Инициализируем матрицу метрик значением int.MaxValue
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    distanceMatrix[i, j] = int.MaxValue;
+                }
+            }
+
+            // Заполняем матрицу метрик значениями из матрицы смежности
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (i == j)
+                    {
+                        // Расстояние от вершины до самой себя равно 0
+                        distanceMatrix[i, j] = 0;
+                    }
+                    else if (adjacencyMatrix[i, j] != 0)
+                    {
+                        // Расстояние от вершины до смежной вершины
+                        distanceMatrix[i, j] = adjacencyMatrix[i, j];
+                    }
+                }
+            }
+            //Не учитываем кратные ребра. 
+            for (int i = 0; i < n; i++)
+            {
+                for (int j = 0; j < n; j++)
+                {
+                    if (adjacencyMatrix[i, j] >= 1)
+                    {
+                        // Расстояние от вершины до смежной вершины
+                        distanceMatrix[i, j] = 1;
+                    }
+                }
+            }
+
+            // Используем алгоритм Флойда-Уоршелла для нахождения кратчайших путей между всеми парами вершин
+            for (int k = 0; k < n; k++)
+            {
+                for (int i = 0; i < n; i++)
+                {
+                    for (int j = 0; j < n; j++)
+                    {
+                        if (distanceMatrix[i, k] != int.MaxValue && distanceMatrix[k, j] != int.MaxValue &&
+                            distanceMatrix[i, k] + distanceMatrix[k, j] < distanceMatrix[i, j])
+                        {
+                            distanceMatrix[i, j] = distanceMatrix[i, k] + distanceMatrix[k, j];
+                        }
+                    }
+                }
+            }
+
+            return distanceMatrix;
         }
 
         /// <summary>

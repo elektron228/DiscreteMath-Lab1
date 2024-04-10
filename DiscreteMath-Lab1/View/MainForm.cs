@@ -9,6 +9,7 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
 using System.Drawing.Configuration;
+using System.Drawing.Drawing2D;
 
 namespace DiscreteMath_Lab1
 {
@@ -22,6 +23,7 @@ namespace DiscreteMath_Lab1
             E = new List<Edge>();
             DrawingAreaPictureBox.Image = G.GetBitmap();
             GraphSizeComboBox.DataSource = ints;
+            
         }
         DrawGraph G;
         List<Vertex> V;
@@ -32,6 +34,8 @@ namespace DiscreteMath_Lab1
         int[,] AMatrix;
         //Матрица инцидентности.
         int[,] IMatrix;
+        //Матрица метрик.
+        int[,] MMatrix;
 
         //Выбранные вершины, для соединения линиями.
         int selected1; 
@@ -94,6 +98,47 @@ namespace DiscreteMath_Lab1
         private void CreateIncMatrButton_Click(object sender, EventArgs e)
         {
             createIncAndOut();
+        }
+
+        private void MetrixMatrButton_Click(object sender, EventArgs e)
+        {
+            createMetrAndOut();
+        }
+
+        private void createMetrAndOut()
+        {
+            MMatrix = new int[V.Count, V.Count];
+            G.fillAdjacencyMatrix(V.Count, E, AMatrix);
+            MMatrix = G.CreateMetricsMatrix(AMatrix);
+            GraphMetrics graphMetrics = new GraphMetrics(MMatrix);
+            MatrixListBox.Items.Clear();
+            string sOut = "    ";
+            for (int i = 0; i < V.Count; i++)
+                sOut += (i + 1) + " ";
+            MatrixListBox.Items.Add(sOut);
+            for (int i = 0; i < V.Count; i++)
+            {
+                sOut = (i + 1) + " | ";
+                for (int j = 0; j < V.Count; j++)
+                    sOut += MMatrix[i, j] + " ";
+                MatrixListBox.Items.Add(sOut);
+            }
+            sOut = $"Radius: {graphMetrics.FindRadius()}";
+            MatrixListBox.Items.Add(sOut);
+            sOut = $"Diameter: {graphMetrics.FindDiameter()}";
+            MatrixListBox.Items.Add(sOut);
+            sOut = "Central verticies: ";
+            foreach (int vertex in graphMetrics.FindCentralVertices())
+            {
+                sOut += vertex+1 + " ";
+            }
+            MatrixListBox.Items.Add(sOut);
+            sOut = "Peripheral verticies: ";
+            foreach (int vertex in graphMetrics.FindPeripheralVertices())
+            {
+                sOut += vertex+1 + " ";
+            }
+            MatrixListBox.Items.Add(sOut);
         }
 
         /// <summary>
@@ -539,7 +584,7 @@ namespace DiscreteMath_Lab1
             
 
         }
-        
 
+        
     }
 }
