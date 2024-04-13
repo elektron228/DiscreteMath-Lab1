@@ -579,12 +579,38 @@ namespace DiscreteMath_Lab1
                     }
                     G.drawALLGraph(V, E);
                 }
-
             }
-            
-
         }
 
-        
+        private void EmptySubraphButton_Click(object sender, EventArgs e)
+        {
+            var emptySubgraphs = G.FindMaxEmptySubgraph(AMatrix);
+            string sOut = "";
+            MatrixListBox.Items.Clear();
+            foreach (var subgraph in emptySubgraphs)
+            {
+                foreach(var vert in subgraph)
+                {
+                    sOut += $"{(vert+1).ToString()} ";
+                }
+            }
+            MatrixListBox.Items.Add(sOut);
+
+            var colors = G.GraphColoring(AMatrix);
+            for (int i = 0; i < AMatrix.GetLength(0); i++)
+            {
+                sOut = $"Вершина {i + 1}: цвет {colors[i]}";
+                MatrixListBox.Items.Add(sOut);
+            }
+            int chromeNumb = 0;
+            foreach (var color  in colors)
+            {
+                if (color > chromeNumb)
+                {
+                    chromeNumb = color;
+                }
+            }
+            MatrixListBox.Items.Add($"Хроматическое число графа: {chromeNumb}");
+        }
     }
 }

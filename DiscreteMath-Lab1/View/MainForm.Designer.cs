@@ -45,6 +45,7 @@
             this.FullGraphCheckBox = new System.Windows.Forms.CheckBox();
             this.GenerateRandomGraphButton = new System.Windows.Forms.Button();
             this.MetrixMatrButton = new System.Windows.Forms.Button();
+            this.EmptySubgraphButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingAreaPictureBox)).BeginInit();
             this.GenerateGraphGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -225,11 +226,22 @@
             this.MetrixMatrButton.UseVisualStyleBackColor = true;
             this.MetrixMatrButton.Click += new System.EventHandler(this.MetrixMatrButton_Click);
             // 
+            // EmptySubgraphButton
+            // 
+            this.EmptySubgraphButton.Location = new System.Drawing.Point(542, 236);
+            this.EmptySubgraphButton.Name = "EmptySubgraphButton";
+            this.EmptySubgraphButton.Size = new System.Drawing.Size(95, 23);
+            this.EmptySubgraphButton.TabIndex = 12;
+            this.EmptySubgraphButton.Text = "EmptySubgraph";
+            this.EmptySubgraphButton.UseVisualStyleBackColor = true;
+            this.EmptySubgraphButton.Click += new System.EventHandler(this.EmptySubraphButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 423);
+            this.Controls.Add(this.EmptySubgraphButton);
             this.Controls.Add(this.MetrixMatrButton);
             this.Controls.Add(this.GenerateGraphGroupBox);
             this.Controls.Add(this.MatrixListBox);
@@ -268,6 +280,7 @@
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.ComboBox GraphSizeComboBox;
         private System.Windows.Forms.Button MetrixMatrButton;
+        private System.Windows.Forms.Button EmptySubgraphButton;
     }
 }
 

@@ -4,6 +4,7 @@ using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms.VisualStyles;
 
 namespace DiscreteMath_Lab1
 {
@@ -259,6 +260,134 @@ namespace DiscreteMath_Lab1
                     matrix[E[i].Vertex2, i] = 1;
                 }
             }
+        }
+
+        /// <summary>
+        /// Алгоритм поиска максимального пустого подграфа в графе
+        /// </summary>
+        /// <param name="adjacencyMatrix">Матрица смежности графа</param>
+        /// <returns>Список множеств вершин, представляющих пустые подграфы</returns>
+        public List<HashSet<int>> FindMaxEmptySubgraph(int[,] adjacencyMatrix)
+        {
+            // Создание списка смежности для графа
+            var adjacencyList = new Dictionary<int, List<int>>();
+            for (int i = 0; i < adjacencyMatrix.GetLength(0); i++)
+            {
+                adjacencyList[i] = new List<int>();
+            }
+
+            for (int i = 0; i < adjacencyMatrix.GetLength(0); i++)
+            {
+                for (int j = 0; j < adjacencyMatrix.GetLength(1); j++)
+                {
+                    if (adjacencyMatrix[i, j] == 1)
+                    {
+                        adjacencyList[i].Add(j);
+                        adjacencyList[j].Add(i);
+                    }
+                }
+            }
+
+            // Создание списка посещенных вершин
+            var visited = new HashSet<int>();
+
+            // Инициализация результата
+            var emptySubgraphs = new List<HashSet<int>>();
+
+            // Перебор всех вершин графа
+            for (int i = 0; i < adjacencyMatrix.GetLength(0); i++)
+            {
+                if (!visited.Contains(i))
+                {
+                    // Поиск пустого подграфа, начинающегося с данной вершины
+                    var emptySubgraph = FindEmptySubgraph(i, adjacencyList, visited);
+
+                    // Добавление найденного пустого подграфа в результат
+                    emptySubgraphs.Add(emptySubgraph);
+                }
+            }
+
+            // Сортировка найденных пустых подграфов по убыванию размера
+            emptySubgraphs.Sort((a, b) => b.Count - a.Count);
+
+            // Возврат максимального по размеру пустого подграфа
+            return emptySubgraphs;
+        }
+
+        /// <summary>
+        /// Поиск пустого подграфа в графе, начинающегося с данной вершины
+        /// </summary>
+        /// <param name="vertex">Начальная вершина</param>
+        /// <param name="adjacencyList">Список смежности для графа</param>
+        /// <param name="visited">Список посещенных вершин</param>
+        /// <returns>Множество вершин, представляющее пустой подграф</returns>
+        private HashSet<int> FindEmptySubgraph(int vertex, Dictionary<int, List<int>> adjacencyList, HashSet<int> visited)
+        {
+            // Добавление вершины в список посещенных
+            visited.Add(vertex);
+
+            // Создание множества вершин, представляющее пустой подграф
+            var emptySubgraph = new HashSet<int>();
+            emptySubgraph.Add(vertex);
+
+            // Перебор соседей вершины
+            foreach (var neighbor in adjacencyList[vertex])
+            {
+                // Если сосед не был посещен
+                if (!visited.Contains(neighbor))
+                {
+                    // Рекурсивный поиск пустого подграфа, начинающегося с соседа
+                    var neighborEmptySubgraph = FindEmptySubgraph(neighbor, adjacencyList, visited);
+
+                    // Объединение найденного пустого подграфа с текущим
+                    emptySubgraph.UnionWith(neighborEmptySubgraph);
+                }
+            }
+
+            // Возврат множества вершин, представляющее пустой подграф
+            return emptySubgraph;
+        }
+
+        /// <summary>
+        /// Алгоритм раскраски графа по матрице смежности
+        /// </summary>
+        /// <param name="adjacencyMatrix">Матрица смежности графа</param>
+        /// <returns>Массив цветов, присвоенных вершинам графа</returns>
+        public  int[] GraphColoring(int[,] adjacencyMatrix)
+        {
+            // Количество вершин в графе
+            int n = adjacencyMatrix.GetLength(0);
+
+            // Массив цветов, присвоенных вершинам
+            int[] colors = new int[n];
+
+            // Список доступных цветов
+            List<int> availableColors = new List<int>();
+
+            // Для каждой вершины
+            for (int i = 0; i < n; i++)
+            {
+                // Получить список цветов, доступных для данной вершины
+                availableColors.Clear();
+                for (int j = 0; j < n; j++)
+                {
+                    if (adjacencyMatrix[i, j] >= 1 && colors[j] != 0)
+                    {
+                        availableColors.Add(colors[j]);
+                    }
+                }
+
+                // Присвоить вершине первый доступный цвет
+                int color = 1;
+                while (availableColors.Contains(color))
+                {
+                    color++;
+                }
+                colors[i] = color;
+            }
+
+            // Возвратить массив цветов
+            return colors;
         }
     }
 }
