@@ -46,6 +46,9 @@
             this.GenerateRandomGraphButton = new System.Windows.Forms.Button();
             this.MetrixMatrButton = new System.Windows.Forms.Button();
             this.EmptySubgraphButton = new System.Windows.Forms.Button();
+            this.StartVertex = new System.Windows.Forms.TextBox();
+            this.EndVertex = new System.Windows.Forms.TextBox();
+            this.FindDistanceButton = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.DrawingAreaPictureBox)).BeginInit();
             this.GenerateGraphGroupBox.SuspendLayout();
             this.SuspendLayout();
@@ -236,11 +239,38 @@
             this.EmptySubgraphButton.UseVisualStyleBackColor = true;
             this.EmptySubgraphButton.Click += new System.EventHandler(this.EmptySubraphButton_Click);
             // 
+            // StartVertex
+            // 
+            this.StartVertex.Location = new System.Drawing.Point(542, 365);
+            this.StartVertex.Name = "StartVertex";
+            this.StartVertex.Size = new System.Drawing.Size(95, 20);
+            this.StartVertex.TabIndex = 13;
+            // 
+            // EndVertex
+            // 
+            this.EndVertex.Location = new System.Drawing.Point(542, 391);
+            this.EndVertex.Name = "EndVertex";
+            this.EndVertex.Size = new System.Drawing.Size(95, 20);
+            this.EndVertex.TabIndex = 14;
+            // 
+            // FindDistanceButton
+            // 
+            this.FindDistanceButton.Location = new System.Drawing.Point(542, 336);
+            this.FindDistanceButton.Name = "FindDistanceButton";
+            this.FindDistanceButton.Size = new System.Drawing.Size(95, 23);
+            this.FindDistanceButton.TabIndex = 15;
+            this.FindDistanceButton.Text = "FindDistance";
+            this.FindDistanceButton.UseVisualStyleBackColor = true;
+            this.FindDistanceButton.Click += new System.EventHandler(this.FindDistanceButton_Click);
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(771, 423);
+            this.Controls.Add(this.FindDistanceButton);
+            this.Controls.Add(this.EndVertex);
+            this.Controls.Add(this.StartVertex);
             this.Controls.Add(this.EmptySubgraphButton);
             this.Controls.Add(this.MetrixMatrButton);
             this.Controls.Add(this.GenerateGraphGroupBox);
@@ -259,6 +289,7 @@
             this.GenerateGraphGroupBox.ResumeLayout(false);
             this.GenerateGraphGroupBox.PerformLayout();
             this.ResumeLayout(false);
+            this.PerformLayout();
 
         }
 
@@ -281,6 +312,9 @@
         private System.Windows.Forms.ComboBox GraphSizeComboBox;
         private System.Windows.Forms.Button MetrixMatrButton;
         private System.Windows.Forms.Button EmptySubgraphButton;
+        private System.Windows.Forms.TextBox StartVertex;
+        private System.Windows.Forms.TextBox EndVertex;
+        private System.Windows.Forms.Button FindDistanceButton;
     }
 }
 

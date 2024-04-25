@@ -389,5 +389,115 @@ namespace DiscreteMath_Lab1
             // Возвратить массив цветов
             return colors;
         }
+
+
+
+
+
+        /// <summary>
+        /// Алгоритм Дейкстры для поиска кратчайшего пути между двумя заданными вершинами по матрице смежности
+        /// </summary>
+        /// <param name="adjacencyMatrix">Матрица смежности графа</param>
+        /// <param name="startVertex">Начальная вершина</param>
+        /// <param name="endVertex">Конечная вершина</param>
+        /// <returns>Кратчайшее расстояние между двумя заданными вершинами</returns>
+        public  int FindShortestPath(int[,] adjacencyMatrix, int startVertex, int endVertex)
+        {
+            // Количество вершин в графе
+            int n = adjacencyMatrix.GetLength(0);
+
+            // Создание массива расстояний
+            int[] distances = new int[n];
+            for (int i = 0; i < distances.Length; i++)
+            {
+                distances[i] = int.MaxValue;
+            }
+            distances[startVertex] = 0;
+
+            // Создание очереди приоритетов
+            var priorityQueue = new PriorityQueue<int, int>();
+            priorityQueue.Enqueue(startVertex, 0);
+
+            // Пока очередь приоритетов не пуста
+            while (priorityQueue.Count > 0)
+            {
+                // Извлечение вершины с минимальным расстоянием
+                var currentVertex = priorityQueue.Dequeue();
+
+                // Если текущая вершина - конечная вершина, то завершить алгоритм и вернуть расстояние
+                if (currentVertex == endVertex)
+                {
+                    return distances[currentVertex];
+                }
+
+                // Обновление расстояний до соседних вершин
+                for (int i = 0; i < n; i++)
+                {
+                    if (adjacencyMatrix[currentVertex, i] > 0)
+                    {
+                        int newDistance = distances[currentVertex] + adjacencyMatrix[currentVertex, i];
+                        if (newDistance < distances[i])
+                        {
+                            distances[i] = newDistance;
+                            priorityQueue.Enqueue(i, newDistance);
+                        }
+                    }
+                }
+            }
+
+            // Если конечная вершина недостижима, то вернуть -1
+            return -1;
+        }
+
+        /// <summary>
+        /// Класс очереди приоритетов
+        /// </summary>
+        /// <typeparam name="TPriority">Тип приоритета</typeparam>
+        /// <typeparam name="TValue">Тип значения</typeparam>
+        private class PriorityQueue<TPriority, TValue>
+        {
+            private SortedDictionary<TPriority, Queue<TValue>> _queue = new SortedDictionary<TPriority, Queue<TValue>>();
+
+            /// <summary>
+            /// Добавление элемента в очередь
+            /// </summary>
+            /// <param name="priority">Приоритет</param>
+            /// <param name="value">Значение</param>
+            public void Enqueue(TPriority priority, TValue value)
+            {
+                if (!_queue.ContainsKey(priority))
+                {
+                    _queue[priority] = new Queue<TValue>();
+                }
+                _queue[priority].Enqueue(value);
+            }
+
+            /// <summary>
+            /// Извлечение элемента с минимальным приоритетом
+            /// </summary>
+            /// <returns>Значение элемента с минимальным приоритетом</returns>
+            public TValue Dequeue()
+            {
+                if (_queue.Count == 0)
+                {
+                    throw new InvalidOperationException("Очередь пуста");
+                }
+
+                var minPriority = _queue.First().Key;
+                var value = _queue[minPriority].Dequeue();
+
+                if (_queue[minPriority].Count == 0)
+                {
+                    _queue.Remove(minPriority);
+                }
+
+                return value;
+            }
+
+            /// <summary>
+            /// Количество элементов в очереди
+            /// </summary>
+            public int Count => _queue.Values.Sum(q => q.Count);
+        }
     }
 }

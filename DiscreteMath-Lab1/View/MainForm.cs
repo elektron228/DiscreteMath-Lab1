@@ -612,5 +612,16 @@ namespace DiscreteMath_Lab1
             }
             MatrixListBox.Items.Add($"Хроматическое число графа: {chromeNumb}");
         }
+
+        private void FindDistanceButton_Click(object sender, EventArgs e)
+        {
+            MatrixListBox.Items.Clear();
+            string sOut = "";
+            int startV = int.Parse(StartVertex.Text)-1;
+            int endV = int.Parse(EndVertex.Text)-1;
+            var distance = G.FindShortestPath(AMatrix, startV, endV);
+            sOut += $"Кратчайшее расстояние: {distance.ToString()}";
+            MatrixListBox.Items.Add(sOut);
+        }
     }
 }
