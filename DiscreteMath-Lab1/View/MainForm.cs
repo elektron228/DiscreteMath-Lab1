@@ -615,11 +615,23 @@ namespace DiscreteMath_Lab1
 
         private void FindDistanceButton_Click(object sender, EventArgs e)
         {
+            DijkstraAlg dijkstraAlg = new DijkstraAlg();
             MatrixListBox.Items.Clear();
             string sOut = "";
             int startV = int.Parse(StartVertex.Text)-1;
             int endV = int.Parse(EndVertex.Text)-1;
-            var distance = G.FindShortestPath(AMatrix, startV, endV);
+            var weigthMatrix = dijkstraAlg.ConvertToWeightedMatrix(AMatrix);
+            for (int i = 0; i < weigthMatrix.GetLength(0); i++)
+            {
+                sOut = "";
+                for (int j = 0; j  < weigthMatrix.GetLength(0); j++)
+                {
+                    sOut += $"{weigthMatrix[i, j]} ";
+                }
+                MatrixListBox.Items.Add(sOut);
+            }
+            sOut = "";
+            var distance = dijkstraAlg.Dijkstra(weigthMatrix, startV, endV);
             sOut += $"Кратчайшее расстояние: {distance.ToString()}";
             MatrixListBox.Items.Add(sOut);
         }

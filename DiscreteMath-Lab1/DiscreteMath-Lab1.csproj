@@ -46,6 +46,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Model\Classes\DijkstraAlg.cs" />
     <Compile Include="Model\Classes\DrawGraph.cs" />
     <Compile Include="Model\Classes\Edge.cs" />
     <Compile Include="Model\Classes\GraphMetrics.cs" />
